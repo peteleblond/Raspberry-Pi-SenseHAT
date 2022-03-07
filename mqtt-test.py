@@ -207,6 +207,45 @@ class Device(object):
         payload = message.payload.decode('utf-8')
         print('Received message \'{}\' on topic \'{}\' with Qos {}'.format(payload, message.topic, str(message.qos)))
         
+        # incoming message 'animation' START
+        sense.set_pixels(stripes_1)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_2)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_3)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_4)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_5)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_6)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_1)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_2)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_3)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_4)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_5)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_6)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_1)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_2)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_3)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_4)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_5)
+        time.sleep(0.1)
+        sense.set_pixels(stripes_6)
+        time.sleep(0.1)
+        # incoming message 'animation' END
+
         if not payload:
             return
         # Parse incoming JSON.
@@ -264,11 +303,6 @@ def main():
         while True:
             device.update_led_state()
             # If button was pressed - send message.
-            # waiting 'animation' START
-            sense.clear()
-            time.sleep(0.5)
-            sense.show_letter(".", green)
-            # waiting 'animation' END
             if not GPIO.input(BUTTON_PIN):   
                 currentTime = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
                 num_message += 1
@@ -285,7 +319,12 @@ def main():
                 client.publish(mqtt_telemetry_topic, payload, qos=1)
                 # Make sure that message was sent once on press.
                 while not GPIO.input(BUTTON_PIN):
-                    time.sleep(0.1)   
+                     # waiting 'animation' START
+                     sense.clear()
+                     time.sleep(0.5)
+                     sense.show_letter(".", green)
+                     # waiting 'animation' END 
+                     time.sleep(0.1)   
             time.sleep(0.1)
 
 
